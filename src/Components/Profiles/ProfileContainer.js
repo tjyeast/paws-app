@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { fetchCrittersByUser, fetchUserDescription, fetchCritterDescription, verifyUser, addUserDescription } from '../../services/apihelper';
+import { fetchCrittersByUser, fetchUserDescription, fetchCritterDescription, verifyUser, addUserDescription, addCritter } from '../../services/apihelper';
 import EditProfile from './EditProfile';
 import Description from './Description';
 import AnimalProfile from './AnimalProfile';
+import AddAnimal from '../Animals/AddAnimal'
 import { Route, Link, withRouter } from 'react-router-dom';
 
 class ProfileContainer extends Component {
@@ -20,7 +21,6 @@ class ProfileContainer extends Component {
         let animals;
         if(user) {
             animals = await (fetchCrittersByUser(this.props.user.id))
-            console.log(animals);
             animals.map( async (animal) => {
                 const animalDescription = await(fetchCritterDescription(animal._id)); 
                 animal.description = animalDescription;
@@ -28,7 +28,6 @@ class ProfileContainer extends Component {
             })
         }
         const userDescription = await(fetchUserDescription(this.props.user.id));
-        console.log(userDescription);
          this.setState({
              animals,
              userDescription,
@@ -48,6 +47,8 @@ class ProfileContainer extends Component {
         })
     }
 
+    
+
     render() {
         return (
             <div>
@@ -66,18 +67,20 @@ class ProfileContainer extends Component {
                 />
                 <Description handleSubmit={this.handleSubmit} user={this.props.user.id} />
 
-                <h2>Your Furfoots</h2>
+                <h2>Your Critters</h2>
+                <p>Have a new Critter to add to your menagerie?</p>
+                <Link to='/animal/create'>New Critter</Link>
+                
                 {this.state.animals && this.state.animals.map(critter => {
-                    return <div>
-                        <img src={critter.image} alt="doggo" width="300px" height="300px" />
-                        <p>{critter.name}</p>
-                        <p>{critter.age}</p>
-                        <p>{critter.description}</p>
-                        <AnimalProfile critter={this.state.animals.map(critter => { return critter;})} />
-                    </div>
+                    return <div><Link to={`/profile/animal/${critter._id}`}>
+                                <img src={critter.image} alt="doggo" width="300px" height="300px" /></Link>
+                                <Route path='/profile/animal/:id' render={(props) => {
+                                    return <AnimalProfile critter={critter} />
+                                }}/>
+                           </div>
+                           
                 })}
-
-            </div>
+            </div>         
         )
     }
 }

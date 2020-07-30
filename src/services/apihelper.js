@@ -27,7 +27,6 @@ export const verifyUser = async () => {
     if (token) {
         api.defaults.headers.common.authorization = `Bearer ${token}`;
         const userData = await api.get('/auth/verify');
-        console.log(userData);
         return userData.data;
     } else {
         return false;
@@ -60,6 +59,12 @@ export const fetchCrittersByUser = async(id) => {
 export const fetchCritterDescription = async(id) => {
     const critterDescription = await api.get(`/animal/description/${id}`);
     return critterDescription.data;
+}
+
+export const addCritter = async(newCritter) => {
+    const critterData = await api.post('/animal/create', newCritter);
+    console.log(critterData);
+    return critterData.data;
 }
 
 export const editCritter = async(critterData) => {

@@ -20,6 +20,7 @@ class UserDescription extends Component {
         return (
             <form onSubmit={(e) => this.props.handleSubmit(e, this.state)}>
                 <input type="text"
+                name="body"
                 value={this.state.body}
                 placeholder="Enter your description here"
                 onChange={this.handleChange}

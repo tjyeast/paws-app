@@ -2,13 +2,14 @@ import React, {Component} from 'react';
 import { Route, Link, withRouter } from 'react-router-dom';
 
 //apihelper functions
-import {registerUser, loginUser, verifyUser, editUser } from './services/apihelper'
+import {registerUser, loginUser, verifyUser, editUser, addCritter } from './services/apihelper'
 
 //custom components
 import Login from './Components/Users/Login';
 import Register from './Components/Users/Register';
 import PostContainer from './Components/Posts/PostContainer';
 import ProfileContainer from './Components/Profiles/ProfileContainer';
+import AddAnimal from './Components/Animals/AddAnimal';
 
 class App extends Component {
   constructor(props) {
@@ -53,6 +54,16 @@ handleEdit = async (e, values)=> {
   this.props.history.push('/profile');
 }
 
+addAnimal = async (e, values) => {
+  e.prevenDefault();
+  const newCritter = await addCritter(values);
+  console.log(newCritter);
+  this.setState({
+      animals: newCritter
+  })
+  this.props.history.push('/profile')
+}
+
 async componentDidMount() {
   const currentUser = await verifyUser();
   if(currentUser) {
@@ -92,7 +103,7 @@ async componentDidMount() {
             }}
           />
           
-          <Route path="/profile" render={() => {
+          <Route  path="/profile" render={() => {
             return <div>
               {this.state.currentUser && <ProfileContainer user={this.state.currentUser} handleEdit={this.handleEdit} />}
             </div>
@@ -103,6 +114,10 @@ async componentDidMount() {
             return <PostContainer />
             }}
           />
+          <Route path='/animal/create' render={() => {
+                    return <AddAnimal handleSubmit={this.addAnimal}
+                    user={this.state.currentUser}/>
+                }}/>
         </div>
       </div>
     )

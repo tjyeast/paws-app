@@ -11,7 +11,8 @@ class AnimalProfile extends Component {
         console.log(this.props.critter)
         return (
             <div>
-                <p>{this.props.critter.name}</p>
+                <p>hello world</p>
+                <h1>{this.props.critter.name}</h1>
             </div>
         )
     }
