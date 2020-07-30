@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { fetchAllPosts } from '../../services/apihelper';
 
 class PostContainer extends Component {
     constructor(props) {
@@ -9,10 +10,25 @@ class PostContainer extends Component {
         }
     }
 
+    async componentDidMount() {
+        const posts = await fetchAllPosts();
+        console.log(posts)
+        this.setState({
+            posts
+        })
+    }
+
     render() {
         return (
             <div>
-                <p>Posts go Here</p>
+                {this.state.posts && this.state.posts.map(post => {
+                    return <div>
+                        <img src={post.image} alt="animal" width="200px" height="200px" />
+                        <p>{post.post}</p>
+                        <p>{post.user.name}</p>
+                        <p>{post.animal.name}</p>
+                    </div>
+                })}
             </div>
         )
     }

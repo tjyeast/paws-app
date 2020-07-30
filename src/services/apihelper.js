@@ -35,7 +35,7 @@ export const verifyUser = async () => {
 }
 
 export const fetchUserDescription = async(id) => {
-    const userDescription = await api.get(`/profile/description/${id}`);
+    const userDescription = await api.get(`/user/profile/descript/${id}`);
     return userDescription.data;
 }
 
@@ -49,4 +49,11 @@ export const fetchCrittersByUser = async(id) => {
 export const fetchCritterDescription = async(id) => {
     const critterDescription = await api.get(`/animal/description/${id}`);
     return critterDescription.data;
+}
+
+//post paths
+
+export const fetchAllPosts = async () => {
+    const postData = await api.get('/post/all');
+    return postData.data;
 }

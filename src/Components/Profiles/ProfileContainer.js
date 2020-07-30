@@ -16,13 +16,23 @@ class ProfileContainer extends Component {
         let animals;
         if(user) {
             animals = await (fetchCrittersByUser(this.props.user.id))
+            console.log(animals);
+            // (async () => {animals.forEach((animal, index) => {
+            //     const animalDescription = await(fetchCritterDescription(animal._id)); 
+            //     animals[index].description = animalDescription;
+            // })});
+            animals.map( async (animal) => {
+                const animalDescription = await(fetchCritterDescription(animal._id)); 
+                animal.description = animalDescription;
+                return animal
+            })
         }
         const userDescription = await(fetchUserDescription(this.props.user.id));
-        const animalDescription = await(fetchCritterDescription(this.state.animals.id));
+        // const animalDescription = await(fetchCritterDescription(animals[0]._id));
          this.setState({
              animals,
              userDescription,
-             animalDescription
+            //  animalDescription
          })
     }
 
@@ -41,9 +51,10 @@ class ProfileContainer extends Component {
                 <h2>Your Furfoots</h2>
                 {this.state.animals && this.state.animals.map(critter => {
                     return <div>
-                        <img src={critter.image} alt="doggo" width="25px" height="25px" />
+                        <img src={critter.image} alt="doggo" width="100px" height="100px" />
                         <p>{critter.name}</p>
                         <p>{critter.age}</p>
+                        <p>{critter.description}</p>
                     </div>
                 })}
 
