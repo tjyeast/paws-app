@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
+import { Route, Link, withRouter } from 'react-router-dom';
 
 //apihelper functions
-import {registerUser, loginUser, verifyUser } from './services/apihelper'
+import {registerUser, loginUser, verifyUser, editUser } from './services/apihelper'
 
 //custom components
 import Login from './Components/Users/Login';
@@ -23,6 +24,7 @@ handleRegister = async (e, user) => {
   this.setState({
     currentUser: loadedUser
   })
+  this.props.history.push('/profile');
 }
 
 handleLogin = async (e, user) => {
@@ -31,6 +33,7 @@ handleLogin = async (e, user) => {
   this.setState({
     currentUser: loadedUser
   })
+  this.props.history.push('/');
 }
 
 handleLogout = () => {
@@ -38,6 +41,16 @@ handleLogout = () => {
     currentUser: null
   })
   localStorage.removeItem('authToken');
+  this.props.history.push('/');
+}
+
+handleEdit = async (e, values)=> {
+  e.preventDefault();
+  const editedUser = await editUser(this.state.currentUser.id, values);
+  this.setState({
+    currentUser: editedUser
+  })
+  this.props.history.push('/profile');
 }
 
 async componentDidMount() {
@@ -53,19 +66,43 @@ async componentDidMount() {
   render() {
     return (
       <div>
-        <nav>
-         
-          {this.state.currentUser ? <button onClick={this.handleLogout}>Logout</button> : (
-            <div>
-              <Register handleSubmit={this.handleRegister} />
-              <Login handleSubmit={this.handleLogin} />
-            </div>
-          )}
-        </nav>
+        <header>
+          <nav>
+              {this.state.currentUser ? 
+              <button onClick={this.handleLogout}>Logout</button> : (
+              <div>
+                <Link to="/register">SignUp</Link>
+                <Link to="/login">Login</Link>
+              </div>
+            )}
+            {this.state.currentUser && <Link to="/profile">Profile</Link>}
+            <Link to="/">Home</Link>
+          </nav>
+        </header>
+        
+
         <div>
-          <PostContainer />
-          {this.state.currentUser &&
-          <ProfileContainer user={this.state.currentUser} /> }
+          <Route path="/register" render={() => {
+            return <Register handleSubmit={this.handleRegister} />
+            }}
+          />
+          
+          <Route path="/login" render={() => {
+            return <Login handleSubmit={this.handleLogin} />
+            }}
+          />
+          
+          <Route path="/profile" render={() => {
+            return <div>
+              {this.state.currentUser && <ProfileContainer user={this.state.currentUser} handleEdit={this.handleEdit} />}
+            </div>
+            }}
+          />
+
+          <Route exact path="/" render={() => {
+            return <PostContainer />
+            }}
+          />
         </div>
       </div>
     )
@@ -73,4 +110,4 @@ async componentDidMount() {
 }
 
 
-export default App;
+export default withRouter(App);

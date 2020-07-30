@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { fetchAllPosts } from '../../services/apihelper';
+import { Route, Link, withRouter } from 'react-router-dom';
 
 class PostContainer extends Component {
     constructor(props) {
