@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { Route, Link, withRouter } from 'react-router-dom';
 
 //apihelper functions
-import {registerUser, loginUser, verifyUser, editUser, addCritter, fetchCrittersByUser, fetchAllPosts, createPost } from './services/apihelper'
+import {registerUser, loginUser, verifyUser, editUser, addCritter, fetchCrittersByUser, fetchAllPosts, createPost, deletePost, deleteCritter } from './services/apihelper'
 
 //custom components
 import Login from './Components/Users/Login';
@@ -96,6 +96,23 @@ newPost = async (e, values) => {
   this.props.history.push('/')
 }
 
+destroyPost = async(id) => {
+  await deletePost(id);
+  const allPosts = this.state.posts;
+  const remainingPosts = allPosts.filter(post => {
+      return post.id !== id
+  })
+  this.setState({
+      posts: remainingPosts
+  })
+  this.props.history.push('/');
+}
+
+deleteAnimal = async (id) => {
+  await deleteCritter(id);
+  this.props.history.push('/profile')
+}
+
 async componentDidMount() {
   const currentUser = await verifyUser();
   if(currentUser) {
@@ -156,7 +173,7 @@ async componentDidMount() {
           }
 
           <Route exact path='/animal/show/:id' render={(props) => {
-              return <AnimalProfile animals={this.state.animals} id={props.match.params.id} />
+              return <AnimalProfile animals={this.state.animals} id={props.match.params.id} destroyAnimal={this.deleteAnimal} />
           }}/>
           
           <Route path='/post/show/:id' render={(props) => {

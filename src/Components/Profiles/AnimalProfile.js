@@ -22,17 +22,9 @@ class AnimalProfile extends Component {
         })
         this.props.history.push(`/animal/show/${id}`)
     }
-
-    deleteAnimal = async (e, id) => {
-        e.prevenDefault();
-        await deleteCritter(this.props.critter._id);
-        this.props.history.push('/profile')
-    }
     
 
     render() {
-        console.log(this.props.animals);
-        console.log(this.props.id);
         const critter = this.props.animals.find(animal => {
             return animal._id === this.props.id;
         })
@@ -43,8 +35,7 @@ class AnimalProfile extends Component {
                 <p>{critter.age}</p>
                 <p>Need to change some of my information?</p>
                 <EditAnimal critter={critter} handleSubmit={this.handleSubmit} />
-                <button onClick={this.deleteAnimal}
-                id={critter._id}>Remove Animal</button>
+                <button onClick={() => this.props.destroyAnimal(critter._id)}>Remove Animal</button>
             </div>
         )
     }

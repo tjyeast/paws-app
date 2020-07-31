@@ -42,7 +42,7 @@ class ProfileContainer extends Component {
     }
 
     handleSubmit = async (e, values) => {
-        e.prevenDefault();
+        e.preventDefault();
         const newDescription = await addUserDescription(values);
         this.setState({
             userDescription: newDescription
@@ -50,7 +50,7 @@ class ProfileContainer extends Component {
     }
 
     removeUser = async (e, id) => {
-        e.prevenDefault();
+        e.preventDefault();
         await deleteUser(this.props.user.id);
         this.props.history.push('/')
     }
@@ -95,7 +95,7 @@ class ProfileContainer extends Component {
                 
                 {this.state.animals && this.state.animals.map(critter => {
                     return <div><Link to={`/animal/show/${critter._id}`}>
-                                <img src={critter.image} alt="doggo" width="300px" height="300px" /></Link>
+                                <img src={critter.image} alt="animal" width="300px" height="300px" /></Link>
                            </div>
                            
                 })}

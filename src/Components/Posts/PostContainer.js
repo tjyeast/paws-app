@@ -20,21 +20,7 @@ class PostContainer extends Component {
             posts
         })
     }
-
-    
-
-    destroyPost = async(id) => {
-        await deletePost(id);
-        const allPosts = this.state.posts;
-        const remainingPosts = allPosts.filter(post => {
-            return post.id !== id
-        })
-        this.setState({
-            posts: remainingPosts
-        })
-        this.props.history.push('/');
-    }
-
+       
     updatePost = async(e, id, values) => {
         e.preventDefault();
         const updatedPost = await editPost(id, values);
