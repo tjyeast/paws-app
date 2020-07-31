@@ -4,7 +4,6 @@ import { Route, Link, withRouter } from 'react-router-dom';
 
 import CreatePostForm from './CreatePostForm';
 import EditPost from './EditPost';
-import ShowPost from './ShowPost'
 
 class PostContainer extends Component {
     constructor(props) {
@@ -17,21 +16,12 @@ class PostContainer extends Component {
 
     async componentDidMount() {
         const posts = await fetchAllPosts();
-        console.log(posts);
         this.setState({
             posts
         })
     }
 
-    createPost = async (e, values) => {
-        e.prevenDefault();
-        const newPost = await createPost(values);
-        const posts = this.state.posts;
-        posts.push(newPost.data);
-        this.setState({
-            posts: posts            
-        })
-    }
+    
 
     destroyPost = async(id) => {
         await deletePost(id);
@@ -71,15 +61,13 @@ class PostContainer extends Component {
                     </div>
                 })} 
                 <div>
-
-                <Route exact path="/posts/new" render={() => {
-                    return <CreatePostForm handleSubmit={this.createPost}/>
-                }}/>
-                
+                <Link to="/new/post">Create New Post</Link>
+                   
 
                 <Route exact path="/posts/edit/:id"
                     render={(props) => {
                         return <EditPost  
+                        id={this.props.user.id}
                         posts={this.state.posts}
                         updatePost={this.updatePost}
                         postId={this.state.posts._id}

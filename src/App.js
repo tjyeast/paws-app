@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { Route, Link, withRouter } from 'react-router-dom';
 
 //apihelper functions
-import {registerUser, loginUser, verifyUser, editUser, addCritter, fetchCrittersByUser, fetchAllPosts } from './services/apihelper'
+import {registerUser, loginUser, verifyUser, editUser, addCritter, fetchCrittersByUser, fetchAllPosts, createPost } from './services/apihelper'
 
 //custom components
 import Login from './Components/Users/Login';
@@ -12,6 +12,7 @@ import ProfileContainer from './Components/Profiles/ProfileContainer';
 import AddAnimal from './Components/Animals/AddAnimal';
 import AnimalProfile from './Components/Profiles/AnimalProfile';
 import ShowPost from './Components/Posts/ShowPost'
+import CreatePostForm from './Components/Posts/CreatePostForm'
 
 class App extends Component {
   constructor(props) {
@@ -28,7 +29,6 @@ pageSetup = async(currentUser) => {
   if(currentUser) {
       animals = await (fetchCrittersByUser(this.state.currentUser.id));
       const posts = await (fetchAllPosts());
-      console.log(animals);
       this.setState({
         animals: animals,
         posts: posts
@@ -84,13 +84,24 @@ addAnimal = async (e, values) => {
   this.props.history.push('/profile')
 }
 
+newPost = async (e, values) => {
+  e.preventDefault();
+  const newPost = await createPost(values, this.state.currentUser.id);
+  console.log(newPost);
+  const posts = this.state.posts;
+  posts.push(newPost.data);
+  this.setState({
+      posts: posts            
+  })
+  this.props.history.push('/')
+}
+
 async componentDidMount() {
   const currentUser = await verifyUser();
   if(currentUser) {
     this.setState({
       currentUser: currentUser,
     })
-    console.log(currentUser);
     this.pageSetup(currentUser);
   }
 }
@@ -133,7 +144,7 @@ async componentDidMount() {
           />
 
           <Route exact path="/" render={() => {
-            return <PostContainer />
+            return <PostContainer user={this.state.currentUser}/>
             }}
           />
 
@@ -148,13 +159,19 @@ async componentDidMount() {
               return <AnimalProfile animals={this.state.animals} id={props.match.params.id} />
           }}/>
           
-          <Route exact path='/post/show/:id' render={(props) => {
+          <Route path='/post/show/:id' render={(props) => {
                   return <ShowPost 
                       post={this.state.posts} 
                       id={props.match.params.id}
                       destroyPost={this.destroyPost}
                   />
               }}/>
+          {this.state.currentUser &&
+            <Route path="/new/post" render={() => {
+                    return <CreatePostForm handleSubmit={this.newPost}
+                        user={this.state.currentUser.id}/>
+                }}/>
+          }
           
         </div>
       </div>

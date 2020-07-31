@@ -91,6 +91,7 @@ export const fetchAllPosts = async () => {
 
 export const createPost = async (postData) => {
     const newPost = await api.post(`/post/create`, postData);
+    console.log(newPost);
     return newPost.data
 }
 

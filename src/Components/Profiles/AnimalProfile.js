@@ -43,7 +43,8 @@ class AnimalProfile extends Component {
                 <p>{critter.age}</p>
                 <p>Need to change some of my information?</p>
                 <EditAnimal critter={critter} handleSubmit={this.handleSubmit} />
-                <button onClick={this.deleteAnimal}>Remove Animal</button>
+                <button onClick={this.deleteAnimal}
+                id={critter._id}>Remove Animal</button>
             </div>
         )
     }
