@@ -65,7 +65,15 @@ class ProfileContainer extends Component {
                                 user={this.props.user} />
                 }}
                 />
-                <Description handleSubmit={this.handleSubmit} user={this.props.user.id} />
+                
+                {this.state.userDescription && this.state.userDescription.map(description => {
+                    return <p>{description.body}</p>
+                })}
+                <p>Need to add a description of yourself or your sanctuary?</p>
+                <Link to='/user/profile/description'>Add Description</Link>
+                <Route path="/useer/profile/description" render={() => {
+                    return <Description user={this.props.user} />
+                }} />
 
                 <h2>Your Critters</h2>
                 <p>Have a new Critter to add to your menagerie?</p>
@@ -74,7 +82,7 @@ class ProfileContainer extends Component {
                 {this.state.animals && this.state.animals.map(critter => {
                     return <div><Link to={`/profile/animal/${critter._id}`}>
                                 <img src={critter.image} alt="doggo" width="300px" height="300px" /></Link>
-                                <Route path='/profile/animal/:id' render={(props) => {
+                                <Route exact path='/profile/animal/:id' render={(props) => {
                                     return <AnimalProfile critter={critter} />
                                 }}/>
                            </div>
