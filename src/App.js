@@ -13,6 +13,7 @@ import AddAnimal from './Components/Animals/AddAnimal';
 import AnimalProfile from './Components/Profiles/AnimalProfile';
 import ShowPost from './Components/Posts/ShowPost'
 import CreatePostForm from './Components/Posts/CreatePostForm'
+import EditPost from './Components/Posts/EditPost'
 
 class App extends Component {
   constructor(props) {
@@ -160,7 +161,7 @@ async componentDidMount() {
             }}
           />
 
-          <Route exact path="/" render={() => {
+          <Route path="/" render={() => {
             return <PostContainer user={this.state.currentUser}/>
             }}
           />
@@ -172,7 +173,7 @@ async componentDidMount() {
             }}/>
           }
 
-          <Route exact path='/animal/show/:id' render={(props) => {
+          <Route path='/animal/show/:id' render={(props) => {
               return <AnimalProfile animals={this.state.animals} id={props.match.params.id} destroyAnimal={this.deleteAnimal} />
           }}/>
           

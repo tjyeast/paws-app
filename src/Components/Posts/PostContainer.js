@@ -25,13 +25,14 @@ class PostContainer extends Component {
         e.preventDefault();
         const updatedPost = await editPost(id, values);
         const allPosts = this.state.posts;
+        console.log(updatedPost)
         const editedPost = allPosts.map(post => {
             return post.id === parseInt(id) ? updatedPost : post
         })        
         this.setState({
             posts: editedPost
         })
-        this.props.history.push('/posts');
+        this.props.history.push('/');
     }
 
 
@@ -44,22 +45,22 @@ class PostContainer extends Component {
                         <p>{post.post}</p>
                         <p>{post.animal.name}</p>
                         </Link>
+                        <Link to={`/post/edit/${post._id}`}>Edit Post</Link>
+                        <Route path='/post/edit/:id'
+                            render={(props) => {
+                            return <EditPost  
+                            id={this.props.user.id}
+                            post={post}
+                            updatePost={this.updatePost}
+                            postId={post._id}
+                        />
+                    }}
+                />
                     </div>
                 })} 
                 <div>
                 <Link to="/new/post">Create New Post</Link>
                    
-
-                <Route exact path="/posts/edit/:id"
-                    render={(props) => {
-                        return <EditPost  
-                        id={this.props.user.id}
-                        posts={this.state.posts}
-                        updatePost={this.updatePost}
-                        postId={this.state.posts._id}
-                        />
-                    }}
-                />
                 
             
             </div>
@@ -68,4 +69,4 @@ class PostContainer extends Component {
     }
 }
 
-export default PostContainer;
+export default withRouter(PostContainer);

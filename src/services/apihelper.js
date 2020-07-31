@@ -95,8 +95,9 @@ export const createPost = async (postData) => {
     return newPost.data
 }
 
-export const editPost = async(postData) => {
-    const editedPost = await api.put(`/post/edit`, postData);
+export const editPost = async(id, postData) => {
+    const editedPost = await api.put(`/post/edit/${id}`, postData);
+    console.log(postData);
     return editedPost.data;
 }
 

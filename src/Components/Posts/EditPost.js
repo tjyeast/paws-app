@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 
 class EditPost extends Component {
     constructor(props) {
@@ -29,7 +30,7 @@ class EditPost extends Component {
                     onChange={this.handleChange}
                 />
                 <input type="text"
-                    name="body"
+                    name="post"
                     value={this.state.post}
                     onChange={this.handleChange}
                 />
@@ -39,4 +40,4 @@ class EditPost extends Component {
     }
 }
 
-export default EditPost;
+export default withRouter(EditPost);
