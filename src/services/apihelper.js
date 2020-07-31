@@ -49,6 +49,11 @@ export const editUser = async(id, userData) => {
     return editedUser.data;
 }
 
+export const deleteUser = async(id) => {
+    const removeUser = await api.delete(`/user/profile/delete/${id}`);
+    return removeUser.data
+}
+
 //animals paths
 
 export const fetchCrittersByUser = async(id) => {
@@ -67,9 +72,14 @@ export const addCritter = async(newCritter) => {
     return critterData.data;
 }
 
-export const editCritter = async(critterData) => {
-    const editedCritter = await api.put(`/animal/edit`, critterData);
+export const editCritter = async(id, critterData) => {
+    const editedCritter = await api.put(`/animal/edit/${id}`, critterData);
     return editedCritter.data;
+}
+
+export const deleteCritter = async(id) => {
+    const removeCritter = await api.delete(`/animal/delete/${id}`);
+    return removeCritter.data
 }
 
 //post paths
@@ -79,7 +89,17 @@ export const fetchAllPosts = async () => {
     return postData.data;
 }
 
+export const createPost = async (postData) => {
+    const newPost = await api.post(`/post/create`, postData);
+    return newPost.data
+}
+
 export const editPost = async(postData) => {
     const editedPost = await api.put(`/post/edit`, postData);
     return editedPost.data;
+}
+
+export const deletePost = async(id) => {
+    const removePost = await api.delete(`/post/delete/${id}`);
+    return removePost.data
 }

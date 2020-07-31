@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { fetchCrittersByUser, fetchUserDescription, fetchCritterDescription, verifyUser, addUserDescription, addCritter } from '../../services/apihelper';
+import { fetchCrittersByUser, fetchUserDescription, fetchCritterDescription, verifyUser, addUserDescription, addCritter, deleteUser } from '../../services/apihelper';
 import EditProfile from './EditProfile';
 import Description from './Description';
 import AnimalProfile from './AnimalProfile';
@@ -27,7 +27,9 @@ class ProfileContainer extends Component {
                 return animal
             })
         }
+        console.log(animals);
         const userDescription = await(fetchUserDescription(this.props.user.id));
+        console.log(userDescription);
          this.setState({
              animals,
              userDescription,
@@ -45,6 +47,12 @@ class ProfileContainer extends Component {
         this.setState({
             userDescription: newDescription
         })
+    }
+
+    removeUser = async (e, id) => {
+        e.prevenDefault();
+        await deleteUser(this.props.user.id);
+        this.props.history.push('/')
     }
 
     
@@ -69,8 +77,14 @@ class ProfileContainer extends Component {
                 {this.state.userDescription && this.state.userDescription.map(description => {
                     return <p>{description.body}</p>
                 })}
-                <p>Need to add a description of yourself or your sanctuary?</p>
-                <Link to='/user/profile/description'>Add Description</Link>
+
+                {!this.state.userDescription && 
+                    <div>
+                        <p>Need to add a description of yourself or your sanctuary?</p>
+                        <Link to='/user/profile/description'>Add Description</Link>                     
+                    </div>
+                }
+
                 <Route path="/useer/profile/description" render={() => {
                     return <Description user={this.props.user} />
                 }} />
@@ -80,14 +94,12 @@ class ProfileContainer extends Component {
                 <Link to='/animal/create'>New Critter</Link>
                 
                 {this.state.animals && this.state.animals.map(critter => {
-                    return <div><Link to={`/profile/animal/${critter._id}`}>
+                    return <div><Link to={`/animal/show/${critter._id}`}>
                                 <img src={critter.image} alt="doggo" width="300px" height="300px" /></Link>
-                                <Route exact path='/profile/animal/:id' render={(props) => {
-                                    return <AnimalProfile critter={critter} />
-                                }}/>
                            </div>
                            
                 })}
+                <button onClick={this.removeUser}>Remove Account</button>
             </div>         
         )
     }
