@@ -98,21 +98,21 @@ class PostContainer extends Component {
                                 />
                             }}/>
                         {this.props.user &&
-                        <Route path="/new/post" render={() => {
+                        <Route path="/post/new" render={() => {
                                 return <CreatePostForm handleSubmit={this.newPost}
                                     user={this.props.user.id}/>
                             }}/>
                         }
-                        
+
                     </div>
-                    
+
                 </div>
                     <div className="post-nav-main">
                         <img src="/foxphone.png" alt="nav" width="35%" className="post-nav-image" />
                             {this.props.user && <div className="post-nav-links">
                                 <Link to="/profile" className="post-nav">Profile <img src="/parrot.png" alt="link" width="5%" /> </Link>
-                                <Link to="/new/post" className="post-nav">Create New Post <img src="/kittencat.png" alt="link" width="5%" /> </Link>
-                                <Link to="/critter/all" className="post-nav">Your Critters <img src="/fish.png" alt="link" width="5%" /> </Link>
+                                <Link to="/post/new" className="post-nav">Create New Post <img src="/kittencat.png" alt="link" width="5%" /> </Link>
+                                <Link to="/critter" className="post-nav">Your Critters <img src="/fish.png" alt="link" width="5%" /> </Link>
                                 </div>
                             }
                     </div>

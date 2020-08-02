@@ -10,7 +10,8 @@ import Login from './Components/Users/Login';
 import Register from './Components/Users/Register';
 import PostContainer from './Components/Posts/PostContainer';
 import ProfileContainer from './Components/Profiles/ProfileContainer';
-import AnimalProfileContainer from './Components/Profiles/AnimalProfileContainer'
+import AnimalProfileContainer from './Components/Profiles/AnimalProfileContainer';
+import Routes from './Components/Routes/Routes';
 
 class App extends Component {
   constructor(props) {
@@ -80,7 +81,7 @@ async componentDidMount() {
           <h2 className="website-title">Paws Claws and Jaws!</h2>
           <img src="/coyote.png" alt="coyote" width="10%" />
           <nav className = "main-nav">
-            
+
               {this.state.currentUser ?
               <button className="nav-links" id="logout" onClick={this.handleLogout}>Logout</button> : (
               <div className="nav-links">
@@ -117,10 +118,10 @@ async componentDidMount() {
             return <PostContainer user={this.state.currentUser} animals={this.state.animals}/>
             }}
           />
-          <Route path="/critter/all" render={() => {
+          <Route path="/critter" render={() => {
             return <AnimalProfileContainer user={this.state.currentUser.id} animals={this.state.animals} />
           }} />
-     
+
         </div>
       </div>
     )
