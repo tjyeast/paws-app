@@ -10,7 +10,7 @@ function ShowPost(props) {
             <div>
                 {post && (
                     <div>
-                        <img src={post.image} alt="animal" />
+                        <img src={post.image} alt="animal" width="35%" />
                         <p>{post.post}</p>
                         <button 
                             onClick={() => props.destroyPost(post._id)}>

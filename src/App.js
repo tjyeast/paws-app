@@ -1,19 +1,16 @@
 import React, {Component} from 'react';
+import './App.css';
 import { Route, Link, withRouter } from 'react-router-dom';
 
 //apihelper functions
-import {registerUser, loginUser, verifyUser, editUser, addCritter, fetchCrittersByUser, fetchAllPosts, deleteCritter } from './services/apihelper'
+import {registerUser, loginUser, verifyUser, fetchCrittersByUser, fetchAllPosts, } from './services/apihelper'
 
 //custom components
 import Login from './Components/Users/Login';
 import Register from './Components/Users/Register';
 import PostContainer from './Components/Posts/PostContainer';
 import ProfileContainer from './Components/Profiles/ProfileContainer';
-import AddAnimal from './Components/Animals/AddAnimal';
-import AnimalProfile from './Components/Profiles/AnimalProfile';
-
-import CreatePostForm from './Components/Posts/CreatePostForm'
-import EditPost from './Components/Posts/EditPost'
+import AnimalProfileContainer from './Components/Profiles/AnimalProfileContainer';
 
 class App extends Component {
   constructor(props) {
@@ -64,15 +61,6 @@ handleLogout = () => {
   this.props.history.push('/');
 }
 
-
-
-
-
-deleteAnimal = async (id) => {
-  await deleteCritter(id);
-  this.props.history.push('/profile')
-}
-
 async componentDidMount() {
   const currentUser = await verifyUser();
   if(currentUser) {
@@ -86,18 +74,23 @@ async componentDidMount() {
 
   render() {
     return (
-      <div>
-        <header>
-          <nav>
+      <div className="app">
+        <header className="main-header">
+          <img src="/kitty.png" alt="logo" width="10%" />
+          <h2 className="website-title">Paws Claws and Jaws!</h2>
+          <img src="/coyote.png" alt="coyote" width="10%" />
+          <nav className = "main-nav">
+            
               {this.state.currentUser ?
-              <button onClick={this.handleLogout}>Logout</button> : (
-              <div>
-                <Link to="/register">SignUp</Link>
-                <Link to="/login">Login</Link>
+              <button className="nav-links" id="logout" onClick={this.handleLogout}>Logout</button> : (
+              <div className="nav-links">
+                <Link to="/register" className="nav-links">SignUp</Link>
+                <Link to="/login" className="nav-links">Login</Link>
               </div>
             )}
-            {this.state.currentUser && <Link to="/profile">Profile</Link>}
-            <Link to="/">Home</Link>
+            <div className="nav-links">
+            {this.state.currentUser && <Link to="/" className="nav-links">Home</Link>}
+            </div>
           </nav>
         </header>
 
@@ -113,7 +106,7 @@ async componentDidMount() {
             }}
           />
 
-          <Route exact path="/profile" render={() => {
+          <Route path="/profile" render={() => {
             return <div>
               {this.state.currentUser && <ProfileContainer user={this.state.currentUser} />}
             </div>
@@ -124,6 +117,9 @@ async componentDidMount() {
             return <PostContainer user={this.state.currentUser}/>
             }}
           />
+          <Route path="/critter/show" render={() => {
+              return <AnimalProfileContainer user={this.state.currentUser} />
+          }}/>
 
 
 

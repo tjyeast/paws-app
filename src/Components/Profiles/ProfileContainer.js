@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { fetchCrittersByUser, fetchUserDescription, fetchCritterDescription, verifyUser, addUserDescription, addCritter, deleteUser, deleteCritter, editUser } from '../../services/apihelper';
 import EditProfile from './EditProfile';
 import Description from './Description';
-import AnimalProfile from './AnimalProfile';
+import AnimalProfileContainer from './AnimalProfileContainer';
 import AddAnimal from '../Animals/AddAnimal'
 import { Route, Link, withRouter } from 'react-router-dom';
 
@@ -58,17 +58,6 @@ class ProfileContainer extends Component {
       this.props.history.push('/profile');
     }
 
-    addAnimal = async (e, values) => {
-      e.preventDefault();
-      const newCritter = await addCritter(values, this.state.currentUser.id);
-      console.log(newCritter);
-      const animals = this.state.animals;
-      animals.push(newCritter.data);
-      this.setState({
-        animals
-      })
-      this.props.history.push('/profile')
-    }
 
     removeUser = async (e, id) => {
         e.preventDefault();
@@ -76,62 +65,53 @@ class ProfileContainer extends Component {
         this.props.history.push('/')
     }
 
-
-
     render() {
         return (
-            <div>
-                <h2>{this.props.user.name}'s Profile</h2>
-                <p>{this.props.user.username}</p>
-                <p>{this.props.user.email}</p>
-                {this.state.userDescription && this.state.userDescription.map(description => {
-                    return <p>{description.body}</p>
-                })}
-                <p>Need to change this information?</p>
-                <Link to="/profile/edit">Edit Profile</Link>
-                <Route exact path="/profile/edit" render={() => {
-                    return <EditProfile handleEdit={this.props.handleEdit}
-                                user={this.props.user} />
-                }}
-                />
+            <div className="profile-container">
 
-                {this.state.userDescription && this.state.userDescription.map(description => {
-                    return <p>{description.body}</p>
-                })}
+                <img src="/wolf.png" alt="link" width="10%" />
 
-                {!this.state.userDescription &&
-                    <div>
-                        <p>Need to add a description of yourself or your sanctuary?</p>
-                        <Link to='/user/profile/description'>Add Description</Link>
-                    </div>
-                }
+                    <div className="profile-main">
+                    
+                        <h2>{this.props.user.name}'s Profile</h2>
+                        <p>{this.props.user.username}</p>
+                        <p>{this.props.user.email}</p>
+                        {this.state.userDescription && this.state.userDescription.map(description => {
+                            return <p>{description.body}</p>
+                        })}
 
-                <Route path="/user/profile/description" render={() => {
-                    return <Description user={this.props.user} />
-                }} />
+                        {this.state.userDescription && this.state.userDescription.map(description => {
+                            return <p>{description.body}</p>
+                        })}
 
-                <h2>Your Critters</h2>
-                <p>Have a new Critter to add to your menagerie?</p>
-                <Link to='/animal/create'>New Critter</Link>
+                        {!this.state.userDescription &&
+                            <div>
+                                <p>Need to add a description of yourself or your sanctuary?</p>
+                                <Link to='/user/profile/description'>Add Description</Link>
+                            </div>
+                        }
 
-                {this.state.animals && this.state.animals.map(critter => {
-                    return <div><Link to={`/animal/show/${critter._id}`}>
-                                <img src={critter.image} alt="animal" width="300px" height="300px" /></Link>
-                           </div>
+                        <Route path="/user/profile/description" render={() => {
+                            return <Description user={this.props.user} />
+                        }} />
 
-                })}
+                        <div className="profile-edit">
+                            <Link to="/profile/edit" className="profile-edit-nav">Edit Profile</Link>
+                            <Route path="/profile/edit" render={() => {
+                                return <EditProfile handleEdit={this.props.handleEdit}
+                                            user={this.props.user} />
+                            }}
+                            />
+                        </div>
 
-                {this.props.user &&
-                  <Route path='/animal/create' render={() => {
-                            return <AddAnimal handleSubmit={this.addAnimal}
-                            user={this.props.user.id}/>
-                  }}/>
-                }
-
-                <Route path='/animal/show/:id' render={(props) => {
-                    return <AnimalProfile animals={this.state.animals} id={props.match.params.id} destroyAnimal={this.deleteAnimal} />
-                }}/>
-                <button onClick={this.removeUser}>Remove Account</button>
+                </div>
+  
+                <div className="profile-nav">
+                    <img src="/foxuniverse.png" alt="nav icon" width="30%" />
+                    <p className="profile-nav-text">Need to leave?</p>
+                    <button onClick={this.removeUser} className="profile-remove">Remove Account</button>
+                </div>
+                <AnimalProfileContainer user={this.props.user}/>
             </div>
         )
     }

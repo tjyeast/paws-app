@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { fetchAllPosts, createPost, editPost, deletePost } from '../../services/apihelper';
 import { Route, Link, withRouter } from 'react-router-dom';
 
+
 import CreatePostForm from './CreatePostForm';
 import EditPost from './EditPost';
 import ShowPost from './ShowPost';
@@ -63,46 +64,57 @@ class PostContainer extends Component {
 
     render() {
         return (
-            <div>
-                {this.state.posts && this.state.posts.map(post => {
-                    return <div> <Link to={`/post/show/${post._id}`}>
-                        <img src={post.image} alt="animal" width="200px" height="200px" />
-                        <p>{post.post}</p>
-                        <p>{post.animal.name}</p>
-                        </Link>
-                        <Link to={`/post/edit/${post._id}`}>Edit Post</Link>
-                        <Route exact path='/post/edit/:id'
-                            render={(props) => {
-                            return <EditPost
-                            id={this.props.user.id}
-                            post={post}
-                            updatePost={this.updatePost}
-                            postId={post._id}
-                        />
-                    }}
-                />
+            <div className="post-page">
+                <div className="post-container">
+                    <div className="main-post">
+                        {this.state.posts && this.state.posts.map(post => {
+                            return <div className="post-holder"> <Link to={`/post/show/${post._id}`} className="post-link">
+                                <img src={post.image} alt="animal" width="25%" className="post-image"/>
+                                <p className="post-text">{post.post}</p>
+                                <p>{post.animal.name}</p>
+                                </Link>
+                                <div className="edit-post">
+                                <Link to={`/post/edit/${post._id}`} className="post-edit">Edit Post</Link>
+                                <Route path='/post/edit/:id'
+                                    render={(props) => {
+                                    return <EditPost
+                                    id={this.props.user.id}
+                                    post={post}
+                                    updatePost={this.updatePost}
+                                    postId={post._id}
+                                />
+                            }}
+                            />
+                            </div>
+                        </div>
+                        })}
+
+                        <Route exact path='/post/show/:id' render={(props) => {
+                                return <ShowPost
+                                    post={this.state.posts}
+                                    id={props.match.params.id}
+                                    destroyPost={this.destroyPost}
+                                />
+                            }}/>
+                        {this.props.user &&
+                        <Route exact path="/new/post" render={() => {
+                                return <CreatePostForm handleSubmit={this.newPost}
+                                    user={this.props.user.id}/>
+                            }}/>
+                        }
+                        
                     </div>
-                })}
-
-                <Route exact path='/post/show/:id' render={(props) => {
-                        return <ShowPost
-                            post={this.state.posts}
-                            id={props.match.params.id}
-                            destroyPost={this.destroyPost}
-                        />
-                    }}/>
-                {this.props.user &&
-                  <Route exact path="/new/post" render={() => {
-                          return <CreatePostForm handleSubmit={this.newPost}
-                              user={this.props.user.id}/>
-                      }}/>
-                }
-                <div>
-                <Link to="/new/post">Create New Post</Link>
-
-
-
-            </div>
+                    
+                </div>
+                    <div className="post-nav-main">
+                        <img src="/foxphone.png" alt="nav image" width="35%" className="post-nav-image" />
+                            {this.props.user && <div className="post-nav-links">
+                                <Link to="/profile" className="post-nav">Profile <img src="/parrot.png" alt="link" width="5%" /> </Link>
+                                <Link to="/new/post" className="post-nav">Create New Post <img src="/kittencat.png" alt="link" width="5%" /> </Link>
+                                <Link to="/critter/show" className="post-nav">Your Critters <img src="/fish.png" alt="link" width="5%" /> </Link>
+                                </div>
+                            }
+                    </div>
             </div>
         )
     }
