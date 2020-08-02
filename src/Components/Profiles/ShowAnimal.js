@@ -5,7 +5,7 @@ import EditAnimal from '../Animals/EditAnimal';
 
 import { editCritter } from '../../services/apihelper';
 
-class AnimalProfile extends Component {
+class ShowAnimal extends Component {
     constructor(props) {
         super(props);
         
@@ -58,4 +58,4 @@ class AnimalProfile extends Component {
     }
 }
 
-export default withRouter(AnimalProfile);
+export default withRouter(ShowAnimal);

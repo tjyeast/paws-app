@@ -9,7 +9,7 @@ class AnimalProfileContainer extends Component {
         super(props); 
 
         this.state={
-            animals: null,
+            animals: this.props.animals,
         }
 
     }

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import './App.css';
-import { Route, Link, withRouter } from 'react-router-dom';
+import { Route, Link, withRouter, Switch } from 'react-router-dom';
 
 //apihelper functions
 import {registerUser, loginUser, verifyUser, fetchCrittersByUser, fetchAllPosts, } from './services/apihelper'
@@ -10,6 +10,7 @@ import Login from './Components/Users/Login';
 import Register from './Components/Users/Register';
 import PostContainer from './Components/Posts/PostContainer';
 import ProfileContainer from './Components/Profiles/ProfileContainer';
+import AnimalProfileContainer from './Components/Profiles/AnimalProfileContainer'
 
 class App extends Component {
   constructor(props) {
@@ -49,7 +50,7 @@ handleLogin = async (e, user) => {
   this.setState({
     currentUser: loadedUser
   })
-  this.props.history.push('/home');
+  this.props.history.push('/');
 }
 
 handleLogout = () => {
@@ -57,7 +58,7 @@ handleLogout = () => {
     currentUser: null
   })
   localStorage.removeItem('authToken');
-  this.props.history.push('/home');
+  this.props.history.push('/');
 }
 
 async componentDidMount() {
@@ -88,7 +89,7 @@ async componentDidMount() {
               </div>
             )}
             <div className="nav-links">
-            {this.state.currentUser && <Link to="/home" className="nav-links">Home</Link>}
+            {this.state.currentUser && <Link to="/" className="nav-links">Home</Link>}
             </div>
           </nav>
         </header>
@@ -112,16 +113,14 @@ async componentDidMount() {
             }}
           />
 
-          <Route path="/home" render={() => {
+          <Route exact path="/" render={() => {
             return <PostContainer user={this.state.currentUser} animals={this.state.animals}/>
             }}
           />
-          
-
-
-
-
-
+          <Route path="/critter/all" render={() => {
+            return <AnimalProfileContainer user={this.state.currentUser.id} animals={this.state.animals} />
+          }} />
+     
         </div>
       </div>
     )
