@@ -10,7 +10,6 @@ import Login from './Components/Users/Login';
 import Register from './Components/Users/Register';
 import PostContainer from './Components/Posts/PostContainer';
 import ProfileContainer from './Components/Profiles/ProfileContainer';
-import AnimalProfileContainer from './Components/Profiles/AnimalProfileContainer';
 
 class App extends Component {
   constructor(props) {
@@ -50,7 +49,7 @@ handleLogin = async (e, user) => {
   this.setState({
     currentUser: loadedUser
   })
-  this.props.history.push('/');
+  this.props.history.push('/home');
 }
 
 handleLogout = () => {
@@ -58,7 +57,7 @@ handleLogout = () => {
     currentUser: null
   })
   localStorage.removeItem('authToken');
-  this.props.history.push('/');
+  this.props.history.push('/home');
 }
 
 async componentDidMount() {
@@ -89,19 +88,19 @@ async componentDidMount() {
               </div>
             )}
             <div className="nav-links">
-            {this.state.currentUser && <Link to="/" className="nav-links">Home</Link>}
+            {this.state.currentUser && <Link to="/home" className="nav-links">Home</Link>}
             </div>
           </nav>
         </header>
 
 
         <div>
-          <Route path="/register" render={() => {
+          <Route exact path="/register" render={() => {
             return <Register handleSubmit={this.handleRegister} />
             }}
           />
 
-          <Route path="/login" render={() => {
+          <Route exact path="/login" render={() => {
             return <Login handleSubmit={this.handleLogin} />
             }}
           />
@@ -113,13 +112,11 @@ async componentDidMount() {
             }}
           />
 
-          <Route path="/" render={() => {
-            return <PostContainer user={this.state.currentUser}/>
+          <Route path="/home" render={() => {
+            return <PostContainer user={this.state.currentUser} animals={this.state.animals}/>
             }}
           />
-          <Route path="/critter/show" render={() => {
-              return <AnimalProfileContainer user={this.state.currentUser} />
-          }}/>
+          
 
 
 

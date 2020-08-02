@@ -4,7 +4,7 @@ import ShowAnimal from './ShowAnimal';
 import AddAnimal from '../Animals/AddAnimal'
 import { Route, Link, withRouter } from 'react-router-dom';
 
-class ProfileContainer extends Component {
+class AnimalProfileContainer extends Component {
     constructor(props) {
         super(props); 
 
@@ -39,7 +39,7 @@ class ProfileContainer extends Component {
 
     addAnimal = async (e, values) => {
       e.preventDefault();
-      const newCritter = await addCritter(values, this.state.currentUser.id);
+      const newCritter = await addCritter(values, this.props.user.id);
       console.log(newCritter);
       const animals = this.state.animals;
       animals.push(newCritter.data);
@@ -65,7 +65,7 @@ class ProfileContainer extends Component {
 
                    <div className="profile-animal-show">
                         {this.state.animals && this.state.animals.map(critter => {
-                            return <div className="profile-animal-images"><Link to={`/critter/show/${critter._id}`}>
+                            return <div className="profile-animal-images"><Link to={`/critter/${critter._id}`}>
                                         <img src={critter.image} alt="animal" className="animal-profile-image" width="50%" /></Link>
                                     </div>
 
@@ -76,19 +76,19 @@ class ProfileContainer extends Component {
                         <div className="animal-title">
                             <p>Have a new Critter to add to your menagerie?</p>
                         </div>
-                            <Link to='/create' className="profile-animal-link">New Critter
+                            <Link to='/critter/create' className="profile-animal-link">New Critter
                             <img src="/owl.png" alt="icon" width="15%" />
                             </Link>
                     </div>
 
                     {this.props.user &&
-                    <Route path='/create' render={() => {
+                    <Route path='/critter/create' render={() => {
                                 return <AddAnimal handleSubmit={this.addAnimal}
                                 user={this.props.user.id} animals={this.state.animals}/>
                     }}/>
                     }
 
-                    <Route exact path='/critter/show/:id' render={(props) => {
+                    <Route path='/critter/:id' render={(props) => {
                         return <ShowAnimal animals={this.state.animals} id={props.match.params.id} destroyAnimal={this.deleteAnimal} />
                     }}/>
 
@@ -99,4 +99,4 @@ class ProfileContainer extends Component {
     }
 }
 
-export default withRouter(ProfileContainer);
+export default withRouter(AnimalProfileContainer);

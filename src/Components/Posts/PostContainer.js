@@ -6,6 +6,7 @@ import { Route, Link, withRouter } from 'react-router-dom';
 import CreatePostForm from './CreatePostForm';
 import EditPost from './EditPost';
 import ShowPost from './ShowPost';
+import AnimalProfileContainer from '../Profiles/AnimalProfileContainer'
 
 class PostContainer extends Component {
     constructor(props) {
@@ -25,7 +26,7 @@ class PostContainer extends Component {
 
     newPost = async (e, values) => {
       e.preventDefault();
-      const newPost = await createPost(values, this.state.currentUser.id);
+      const newPost = await createPost(values, this.props.user.id);
       console.log(newPost);
       const posts = this.state.posts;
       posts.push(newPost.data);
@@ -97,7 +98,7 @@ class PostContainer extends Component {
                                 />
                             }}/>
                         {this.props.user &&
-                        <Route exact path="/new/post" render={() => {
+                        <Route path="/new/post" render={() => {
                                 return <CreatePostForm handleSubmit={this.newPost}
                                     user={this.props.user.id}/>
                             }}/>
@@ -107,14 +108,17 @@ class PostContainer extends Component {
                     
                 </div>
                     <div className="post-nav-main">
-                        <img src="/foxphone.png" alt="nav image" width="35%" className="post-nav-image" />
+                        <img src="/foxphone.png" alt="nav" width="35%" className="post-nav-image" />
                             {this.props.user && <div className="post-nav-links">
                                 <Link to="/profile" className="post-nav">Profile <img src="/parrot.png" alt="link" width="5%" /> </Link>
                                 <Link to="/new/post" className="post-nav">Create New Post <img src="/kittencat.png" alt="link" width="5%" /> </Link>
-                                <Link to="/critter/show" className="post-nav">Your Critters <img src="/fish.png" alt="link" width="5%" /> </Link>
+                                <Link to="/critter/all" className="post-nav">Your Critters <img src="/fish.png" alt="link" width="5%" /> </Link>
                                 </div>
                             }
                     </div>
+                    <Route path="/critter/all" render={() => {
+                        return <AnimalProfileContainer user={this.props.user} animals={this.props.animals}/>
+                    }}/>
             </div>
         )
     }

@@ -3,14 +3,14 @@ import { withRouter } from 'react-router-dom';
 
 import EditAnimal from '../Animals/EditAnimal';
 
-import { editCritter, deleteCritter } from '../../services/apihelper';
+import { editCritter } from '../../services/apihelper';
 
 class AnimalProfile extends Component {
     constructor(props) {
         super(props);
         
         this.state={
-            animal: this.props.critter
+            animals: this.props.animals
         }
     }
 
@@ -18,14 +18,15 @@ class AnimalProfile extends Component {
         e.prevenDefault();
         const editAnimal = await editCritter(this.props.critter._id, values);
         this.setState({
-            animal: editAnimal
+            animals: editAnimal
         })
         this.props.history.push(`/animal/show/${id}`)
     }
     
 
     render() {
-        const critter = this.props.animals.find(animal => {
+        console.log(this.state.animals);
+        const critter = this.state.animals.find(animal => {
             return animal._id === this.props.id;
         })
         console.log(critter);
@@ -44,7 +45,7 @@ class AnimalProfile extends Component {
                     <div className="singleAnimal-info">
                         <p>{critter.age}</p>
                     </div>
-                    
+
                 </div>
 
                 <div className="single-animal-editremove">

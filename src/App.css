@@ -54,6 +54,39 @@
   width: 85px;
 }
 
+/*register form css */
+
+.registerform {
+  border-radius: 1ex;
+  background-color: lightgray;
+}
+
+.registration {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: whitesmoke;
+  border-radius: 1ex;
+  font-weight: bold;
+}
+
+/* login form css */
+
+.loginform {
+  border-radius: 1ex;
+  background-color: lightgray;
+}
+
+.login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: whitesmoke;
+  border-radius: 1ex;
+  font-weight: bold;
+}
+
+
 /* post container css  */
 
 .post-page {

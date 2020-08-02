@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { fetchCrittersByUser, fetchUserDescription, fetchCritterDescription, verifyUser, addUserDescription, addCritter, deleteUser, deleteCritter, editUser } from '../../services/apihelper';
+import { fetchCrittersByUser, fetchUserDescription, fetchCritterDescription, verifyUser, addUserDescription,  deleteUser, editUser } from '../../services/apihelper';
 import EditProfile from './EditProfile';
 import Description from './Description';
 import AnimalProfileContainer from './AnimalProfileContainer';
-import AddAnimal from '../Animals/AddAnimal'
 import { Route, Link, withRouter } from 'react-router-dom';
 
 class ProfileContainer extends Component {
@@ -111,7 +110,7 @@ class ProfileContainer extends Component {
                     <p className="profile-nav-text">Need to leave?</p>
                     <button onClick={this.removeUser} className="profile-remove">Remove Account</button>
                 </div>
-                <AnimalProfileContainer user={this.props.user}/>
+                <AnimalProfileContainer animals={this.state.animals} user={this.props.user}/>
             </div>
         )
     }

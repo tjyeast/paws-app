@@ -22,53 +22,68 @@ class Registerform extends Component {
 
     render() {
         return (
-            <form onSubmit={(e) => this.props.handleSubmit(e, this.state)}>
-                <h2>Register</h2>
-                <text>Your name or your business name </text><br></br>
-                <text>*required*</text>
-                <input type="text"
-                    name="name"
-                    value={this.state.name}
-                    placeholder="Your name Here!"
-                    onChange={this.handleChange}
-                /><br></br><br></br>
-                <text>Pick a username!</text><br></br>
-                <text>*required*</text>
-                <input type="text" 
-                    name="username" 
-                    value={this.state.username}
-                    placeholder="Username"
-                    onChange={this.handleChange}
-                /><br></br><br></br>
-                <text>Make a Password</text><br></br>
-                <text>*required*</text>
-                <input type="password" 
-                    name="password" 
-                    placehold="Password"
-                    value={this.state.password}
-                    onChange={this.handleChange}
-                /><br></br><br></br>
-                <text>Contact email</text><br></br>
-                <text>*required*</text>
-                <input type="text"
-                    name="email"
-                    value={this.state.email}
-                    placeholder="email@email.com"
-                    onChange={this.handleChange}
-                /><br></br><br></br>
-                <text>You must enter if this is a business or a personal account</text><br></br>
-                <text>*required*</text>
-                <input type="text"
-                    name="type"
-                    value={this.state.type}
-                    placeholder="Business or Personal"
-                    onChange={this.handleChange}
-                /><br></br><br></br>
-                <input type="submit" 
-                    value="Register"
-                />
-            
-            </form>
+            <div className="registerform">
+                <form onSubmit={(e) => this.props.handleSubmit(e, this.state)} className="registration">
+                    <h2>Register</h2>
+                    <p>Your name or your business name<br></br>
+                    *required*
+                    <input type="text"
+                        name="name"
+                        value={this.state.name}
+                        placeholder="Your name Here!"
+                        onChange={this.handleChange}
+                    /></p>
+                    <p>Pick a username!<br></br>
+                    *required*
+                    <input type="text" 
+                        name="username" 
+                        value={this.state.username}
+                        placeholder="Username"
+                        onChange={this.handleChange}
+                    /></p>
+                    <p>Make a Password<br></br>
+                    *required*
+                    <input type="password" 
+                        name="password" 
+                        placehold="Password"
+                        value={this.state.password}
+                        onChange={this.handleChange}
+                    /></p>
+                    <p>Contact email<br></br>
+                    *required*
+                    <input type="text"
+                        name="email"
+                        value={this.state.email}
+                        placeholder="email@email.com"
+                        onChange={this.handleChange}
+                    /></p>
+                    <p>Select account type<br></br>
+                    *required*
+                        <label>
+                            <input type="radio"
+                                name="type"
+                                value="business"
+                                checked={this.state.type === "business"}
+                                onChange={this.handleChange}
+                            />
+                            Business
+                        </label>
+                        <label>
+                            <input type="radio"
+                                name="type"
+                                value="personal"
+                                checked={this.state.type === "personal"}
+                                onChange={this.handleChange}
+                            />
+                            Personal
+                        </label>
+                    </p>
+                    <input type="submit" 
+                        value="Register"
+                    />
+                
+                </form>
+            </div>
         )
     }
 }
