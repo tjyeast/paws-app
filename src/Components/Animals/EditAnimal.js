@@ -4,34 +4,25 @@ import { withRouter } from 'react-router-dom';
 class EditAnimal extends Component {
     constructor(props) {
         super(props);
-        this.state={
-            name: this.props.critter.name,
-            image: this.props.critter.image,
-            image2: this.props.critter.image2,
-            image3: this.props.critter.image3,
-            image4: this.props.critter.image4,
-            age: this.props.critter.age
-        }
-    
+          
     }
 
-    handleChange = (e) => {
-        this.setState({
-            [e.target.name]: e.target.value
-        })
-    }
+   
+
 
     render() {
+    
+        console.log(this.props.critter);
         return (
-            <form onSubmit={(e) => this.props.handleSubmit(e, this.state)}>
+            <form onSubmit={(e) => this.props.handleSubmit(e)}>
 
             <p>Copy and Paste the url of the image<br></br>
             *required
             <input type="text"
                 name="image"
-                value={this.state.image}
+                value={this.props.critter.image}
                 placeholder="url of image here"
-                onChange={this.handleChange}
+                onChange={this.props.handleChange}
                 className="img-url-box"
             /></p>
 
@@ -39,9 +30,9 @@ class EditAnimal extends Component {
             *optional
             <input type="text"
                 name="image2"
-                value={this.state.image2}
+                value={this.props.critter.image2}
                 placeholder="url of image here"
-                onChange={this.handleChange}
+                onChange={this.props.handleChange}
                 className="img-url-box"
             /></p>
 
@@ -49,9 +40,9 @@ class EditAnimal extends Component {
             *optional
             <input type="text"
                 name="image3"
-                value={this.state.image3}
+                value={this.props.critter.image3}
                 placeholder="url of image here"
-                onChange={this.handleChange}
+                onChange={this.props.handleChange}
                 className="img-url-box"
             /></p>
 
@@ -59,9 +50,9 @@ class EditAnimal extends Component {
             *optional
             <input type="text"
                 name="image4"
-                value={this.state.image4}
+                value={this.props.critter.image4}
                 placeholder="url of image here"
-                onChange={this.handleChange}
+                onChange={this.props.handleChange}
                 className="img-url-box"
             /></p>
 
@@ -69,9 +60,9 @@ class EditAnimal extends Component {
             *required
             <input type="text"
                 name="name"
-                value={this.state.name}
-                placeholder="animal name"
-                onChange={this.handleChange}
+                value={this.props.critter.name}
+                placeholder={this.props.critter.name}
+                onChange={this.props.handleChange}
                 className="text-form-field"
             /></p>
 
@@ -79,9 +70,9 @@ class EditAnimal extends Component {
             *required
             <input type="text"
                 name="age"
-                value={this.state.age}
+                value={this.props.critter.age}
                 placeholder="animal age"
-                onChange={this.handleChange}
+                onChange={this.props.handleChange}
                 className="text-form-field"
             /></p>
 

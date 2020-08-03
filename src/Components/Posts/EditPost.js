@@ -28,13 +28,15 @@ class EditPost extends Component {
                     name="image"
                     value={this.state.image}
                     onChange={this.handleChange}
+                    className="img-url-box"
                 />
-                <input type="text"
+                <textarea 
                     name="post"
                     value={this.state.post}
                     onChange={this.handleChange}
+                    className="textarea-field"
                 />
-                <input type="submit" value="Submit Post" />
+                <input type="submit" value="Submit Post" className="edit-button-field" />
             </form>
         )
     }

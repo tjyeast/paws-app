@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import './App.css';
-import { Route, Link, withRouter, Switch } from 'react-router-dom';
+import { Route, Link, withRouter, } from 'react-router-dom';
 
 //apihelper functions
-import {registerUser, loginUser, verifyUser, fetchCrittersByUser, fetchAllPosts, } from './services/apihelper'
+import {registerUser, loginUser, verifyUser, fetchCrittersByUser, fetchAllPosts, addCritter, createPost, deletePost } from './services/apihelper'
 
 //custom components
 import Login from './Components/Users/Login';
@@ -11,7 +11,9 @@ import Register from './Components/Users/Register';
 import PostContainer from './Components/Posts/PostContainer';
 import ProfileContainer from './Components/Profiles/ProfileContainer';
 import AnimalProfileContainer from './Components/Profiles/AnimalProfileContainer';
-import Routes from './Components/Routes/Routes';
+import AddAnimal from './Components/Animals/AddAnimal';
+import CreatePostForm from './Components/Posts/CreatePostForm';
+import ShowPost from './Components/Posts/ShowPost';
 
 class App extends Component {
   constructor(props) {
@@ -51,7 +53,7 @@ handleLogin = async (e, user) => {
   this.setState({
     currentUser: loadedUser
   })
-  this.props.history.push('/');
+  this.props.history.push('/post');
 }
 
 handleLogout = () => {
@@ -59,7 +61,7 @@ handleLogout = () => {
     currentUser: null
   })
   localStorage.removeItem('authToken');
-  this.props.history.push('/');
+  this.props.history.push('/post');
 }
 
 async componentDidMount() {
@@ -72,6 +74,40 @@ async componentDidMount() {
   }
 }
 
+addAnimal = async (e, values) => {
+  e.preventDefault();
+  const newCritter = await addCritter(values, this.state.currentUser.id);
+  const animals = this.state.animals;
+  animals.push(newCritter.data);
+  this.setState({
+    animals
+  })
+  this.props.history.push('/profile')
+}
+
+newPost = async (e, values) => {
+  e.preventDefault();
+  const newPost = await createPost(values, this.state.currentUser.id);
+  console.log(newPost);
+  const posts = this.state.posts;
+  posts.push(newPost.data);
+  this.setState({
+      posts: posts
+  })
+  this.props.history.push('/post')
+}
+
+destroyPost = async(id) => {
+  await deletePost(id);
+  const allPosts = this.state.posts;
+  const remainingPosts = allPosts.filter(post => {
+      return post.id !== id
+  })
+  this.setState({
+      posts: remainingPosts
+  })
+  this.props.history.push('/post');
+}
 
   render() {
     return (
@@ -90,7 +126,7 @@ async componentDidMount() {
               </div>
             )}
             <div className="nav-links">
-            {this.state.currentUser && <Link to="/" className="nav-links">Home</Link>}
+            {this.state.currentUser && <Link to="/post" className="nav-links">Home</Link>}
             </div>
           </nav>
         </header>
@@ -114,13 +150,31 @@ async componentDidMount() {
             }}
           />
 
-          <Route exact path="/" render={() => {
+          <Route path="/post" render={() => {
             return <PostContainer user={this.state.currentUser} animals={this.state.animals}/>
             }}
           />
           <Route path="/critter" render={() => {
             return <AnimalProfileContainer user={this.state.currentUser.id} animals={this.state.animals} />
           }} />
+
+          <Route path='/create' render={() => {
+                return <AddAnimal handleSubmit={this.addAnimal}
+                user={this.state.currentUser.id} animals={this.state.animals}/>
+          }}/>
+
+          <Route path="/new" render={() => {
+              return <CreatePostForm handleSubmit={this.newPost}
+                user={this.state.currentUser.id}/>
+          }}/>
+
+          <Route exact path='/post/show/:id' render={(props) => {
+              return <ShowPost
+                  post={this.state.posts}
+                  id={props.match.params.id}
+                  destroyPost={this.destroyPost}
+              />
+          }}/>
 
         </div>
       </div>

@@ -10,52 +10,84 @@ class ShowAnimal extends Component {
         super(props);
         
         this.state={
-            animals: this.props.animals
+            animals: this.props.animals,
+            critter: null,
+            id: null
         }
     }
 
-    handleSubmit = async (e, id, values) => {
-        e.prevenDefault();
-        const editAnimal = await editCritter(this.props.critter._id, values);
+    handleSubmit = async (e) => {
+        e.preventDefault();
+        const editAnimal = await editCritter(this.state.critter._id, this.state.critter);
         this.setState({
-            animals: editAnimal
+            critter: editAnimal
         })
-        this.props.history.push(`/animal/show/${id}`)
+        this.props.history.push(`/profile`)
     }
-    
 
-    render() {
-        console.log(this.state.animals);
+    handleChange = (e) => {
+        const updateCritter = this.state.critter;
+        updateCritter[e.target.name] = e.target.value
+        this.setState({
+            critter: updateCritter
+        })
+    } 
+    
+    componentDidMount() {
         const critter = this.state.animals.find(animal => {
             return animal._id === this.props.id;
         })
-        console.log(critter);
+        this.setState ({
+            critter,
+            id: this.props.id
+        })
+    }
+
+   static getDerivedStateFromProps(props, state) {
+        if(props.id !== state.id) {
+            const critter = state.animals.find(animal => {
+                return animal._id === props.id;
+            })
+            return {critter, id: props.id}
+        }
+   } 
+
+    render() {
         return (
             <div className="single-animal-container">
+                {this.state.critter &&
+                <>
                 <div className="single-animal-container" id="animal-title">
-                    <h1>Hello everyone! My name is {critter.name}!</h1>
+                    <h1>Hello everyone! My name is {this.state.critter.name}!</h1>
                 </div>
 
                      <div className="single-animal">
                     
                         <div className="single-animal-stats">
                             
-                            <div className="animal-stats" >
-                                <img src={critter.image} alt="animal" width="50%" id="animal-img" />
+                            <div className="animal-stats" id="animal-img">
+                                <img src={this.state.critter.image} alt="animal" width="100%" className="stats-main-image"  />
                             </div>
 
-                            <div className="animal-stats" id="animal-stats">
-                                <p>Age: {critter.age}</p>
+                            <div className="animal-stats" id="animal-stats-list">
+                                <p>Age: {this.state.critter.age}</p>
+                            </div>
+                            <div className="image-gallery">
+                                <img src={this.state.critter.image2} alt="gallery" className="image-gallery-single" width="20%"/>
+                                <img src={this.state.critter.image3} alt="gallery" className="image-gallery-single" width="20%"/>
+                                <img src={this.state.critter.image4} alt="gallery" className="image-gallery-single" width="20%"/>
                             </div>
                     </div>
                 
 
                     <div className="single-animal-editremove">
                         <p>Need to change some of my information?</p>
-                        <EditAnimal critter={critter} handleSubmit={this.handleSubmit} />
-                        <button onClick={() => this.props.destroyAnimal(critter._id)} className="remove-button">Remove Animal</button>
+                        <EditAnimal critter={this.state.critter} handleSubmit={this.handleSubmit} id={this.state.critter._id} handleChange={this.handleChange}/>
+                        <button onClick={() => this.props.destroyAnimal(this.state.critter._id)} className="remove-button">Remove Animal</button>
                     </div>
                 </div>
+                </>
+                }
             </div>
         )
     }

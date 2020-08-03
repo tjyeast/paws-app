@@ -19,28 +19,31 @@ class CreatePostForm extends Component {
 
     render() {
         return (
-            <form onSubmit={(e) => this.props.handleSubmit(e, this.state)}>
-                <h2>Create Your Post!</h2>
-                <text>*optional</text>
-                <input type="text"
-                    name="image"
-                    value={this.state.image}
-                    placeholder="url of your image here"
-                    onChange={this.handleChange}
-                /><br></br><br></br>
-                <text>*required</text>
-                <input type="text"
-                    name="post"
-                    value={this.state.post}
-                    placeholder="What do you have to say?"
-                    onChange={this.handleChange}
-                    width="500px"
-                    height="200px"
-                /><br></br><br></br>
-                <input type="submit"
-                    value="Create Post"
-                />
-            </form>
+            <div className="add-post-form">
+                <form onSubmit={(e) => this.props.handleSubmit(e, this.state)}>
+                    <h2>Create Your Post!</h2>
+                    <p>*optional
+                    <input type="text"
+                        name="image"
+                        value={this.state.image}
+                        placeholder="url of your image here"
+                        onChange={this.handleChange}
+                        className="img-url-box"
+                    /></p>
+                    <p>*required
+                    <textarea type="text"
+                        name="post"
+                        value={this.state.post}
+                        placeholder="What do you have to say?"
+                        onChange={this.handleChange}
+                        className="textarea-field"
+                    /></p>
+                    <input type="submit"
+                        value="Create Post"
+                        className="edit-button-field"
+                    />
+                </form>
+            </div>
         )
     }
 }

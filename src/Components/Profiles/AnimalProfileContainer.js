@@ -76,7 +76,7 @@ class AnimalProfileContainer extends Component {
                         <div className="animal-title">
                             <p>Have a new Critter to add to your menagerie?</p>
                         </div>
-                            <Link to='/create' className="profile-animal-link">New Critter
+                            <Link to='/create' className="profile-animal-link">Add Critter
                             <img src="/owl.png" alt="icon" width="15%" />
                             </Link>
                     </div>
