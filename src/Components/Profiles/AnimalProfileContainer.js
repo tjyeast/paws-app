@@ -76,13 +76,13 @@ class AnimalProfileContainer extends Component {
                         <div className="animal-title">
                             <p>Have a new Critter to add to your menagerie?</p>
                         </div>
-                            <Link to='/critter/create' className="profile-animal-link">New Critter
+                            <Link to='/create' className="profile-animal-link">New Critter
                             <img src="/owl.png" alt="icon" width="15%" />
                             </Link>
                     </div>
 
                     {this.props.user &&
-                    <Route path='/critter/create' render={() => {
+                    <Route exact path='/create' render={() => {
                                 return <AddAnimal handleSubmit={this.addAnimal}
                                 user={this.props.user.id} animals={this.state.animals}/>
                     }}/>

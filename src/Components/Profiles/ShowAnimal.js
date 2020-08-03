@@ -32,26 +32,29 @@ class ShowAnimal extends Component {
         console.log(critter);
         return (
             <div className="single-animal-container">
-                <div className="single-animal">
-                
-                    <div className="animal-title">
-                        <h1>Hello everyone! My name is {critter.name}!</h1>
-                    </div>
-
-                    <div classname="single-animal-img">
-                        <img src={critter.image} alt="animal" />
-                    </div>
-
-                    <div className="singleAnimal-info">
-                        <p>{critter.age}</p>
-                    </div>
-
+                <div className="single-animal-container" id="animal-title">
+                    <h1>Hello everyone! My name is {critter.name}!</h1>
                 </div>
 
-                <div className="single-animal-editremove">
-                    <p>Need to change some of my information?</p>
-                    <EditAnimal critter={critter} handleSubmit={this.handleSubmit} />
-                    <button onClick={() => this.props.destroyAnimal(critter._id)} className="remove-button">Remove Animal</button>
+                     <div className="single-animal">
+                    
+                        <div className="single-animal-stats">
+                            
+                            <div className="animal-stats" >
+                                <img src={critter.image} alt="animal" width="50%" id="animal-img" />
+                            </div>
+
+                            <div className="animal-stats" id="animal-stats">
+                                <p>Age: {critter.age}</p>
+                            </div>
+                    </div>
+                
+
+                    <div className="single-animal-editremove">
+                        <p>Need to change some of my information?</p>
+                        <EditAnimal critter={critter} handleSubmit={this.handleSubmit} />
+                        <button onClick={() => this.props.destroyAnimal(critter._id)} className="remove-button">Remove Animal</button>
+                    </div>
                 </div>
             </div>
         )

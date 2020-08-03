@@ -6,15 +6,16 @@
 /* app.js header css parts */
 
 .main-header {
-  background-color: blue;
+  background-color: #5559E6;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-around;
-  color: aliceblue;
+  color: alice#5559E6;
   height: 150px;
   margin-bottom: 10px;
   padding: 15px;
+  border-radius: 1ex;
 }
 
 .website-title {
@@ -23,6 +24,7 @@
   margin-bottom: 0px;
   margin-top: 10px;
   justify-items: center;
+  color: white;
 }
 
 .main-nav {
@@ -151,7 +153,7 @@
   border-radius: 2ex;
   border-style: solid;
   padding: 4px;
-  background-color: blue;
+  background-color: #5559E6;
   font-size: 13px;
 }
 
@@ -230,7 +232,7 @@
   width: 100px;
   border: none;
   color: whitesmoke;
-  background-color: blue;
+  background-color: #5559E6;
 }
 
 /* animal profile css */
@@ -290,26 +292,96 @@
   color: whitesmoke;
   border-radius: 2ex;
   align-self: center;
-  background-color: blue;
+  background-color: #5559E6;
   text-align: center;
   padding: 0px;
 }
 
-/* single animal css */
+/* show animal css */
 
 .single-animal-container {
   display: flex;
   flex-direction: column;
+  width: 100%;
 }
 
 .single-animal {
   display: flex;
   flex-direction: row;
+  width: 100%;
+  flex: 1;
+  flex-wrap: wrap;
+}
+
+.single-animal-stats {
+  display: flex;
+  flex-direction: row;
+  width: 75%;
+  align-content: flex-start;
   flex-wrap: wrap;
   flex: 1;
-  width: 75%;
+  background-color: whitesmoke;
+  border-radius: 1ex;
+  margin-right: 1%;
+}
+
+.animal-stats {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+#animal-img {
+  border-radius: 6ex;
 }
 
 .single-animal-editremove {
+  display: flex;
+  flex-direction: column;
   width: 25%;
+  background-color: whitesmoke;
+  border-radius: 1ex;
+  align-items: flex-start;
+}
+
+.remove-button {
+  display: flex;
+  flex-direction: row;
+  background-color: red;
+  color: white;
+  border-radius: 1ex;
+  width: 100%;
+  justify-content: center;
+  margin-top: 6%;
+  padding: 1%;
+}
+
+/*form styling css*/
+
+.img-url-box {
+  border-radius: 1ex;
+  width: 95%;
+}
+
+.text-form-field {
+  border-radius: 1ex;
+  width: 75%;
+}
+
+.edit-animal-button {
+  display: flex;
+  flex-direction: row;
+  background-color: #5559E6;
+  color: white;
+  border-radius: 1ex;
+  width: 100%;
+  justify-content: center;
+  margin-top: 3%;
+  padding: 5%;
+}
+
+.edit-button-field {
+  background-color: #5559E6;
+  color: white;
+  border: none;
 }

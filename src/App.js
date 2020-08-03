@@ -78,7 +78,7 @@ async componentDidMount() {
       <div className="app">
         <header className="main-header">
           <img src="/kitty.png" alt="logo" width="10%" />
-          <h2 className="website-title">Paws Claws and Jaws!</h2>
+          <h1 className="website-title">Paws Claws and Jaws!</h1>
           <img src="/coyote.png" alt="coyote" width="10%" />
           <nav className = "main-nav">
 

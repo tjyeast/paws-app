@@ -25,63 +25,72 @@ class EditAnimal extends Component {
         return (
             <form onSubmit={(e) => this.props.handleSubmit(e, this.state)}>
 
-            <text>Copy and Paste the url of the image</text><br></br>
-            <text>*required</text>
+            <p>Copy and Paste the url of the image<br></br>
+            *required
             <input type="text"
                 name="image"
                 value={this.state.image}
                 placeholder="url of image here"
                 onChange={this.handleChange}
-            /><br></br><br></br>
+                className="img-url-box"
+            /></p>
 
-            <text>Copy and Paste the url of the image</text><br></br>
-            <text>*optional</text>
+            <p>Copy and Paste the url of the image<br></br>
+            *optional
             <input type="text"
                 name="image2"
                 value={this.state.image2}
                 placeholder="url of image here"
                 onChange={this.handleChange}
-            /><br></br><br></br>
+                className="img-url-box"
+            /></p>
 
-            <text>Copy and Paste the url of the image</text><br></br>
-            <text>*optional</text>
+            <p>Copy and Paste the url of the image<br></br>
+            *optional
             <input type="text"
                 name="image3"
                 value={this.state.image3}
                 placeholder="url of image here"
                 onChange={this.handleChange}
-            /><br></br><br></br>
+                className="img-url-box"
+            /></p>
 
-            <text>Copy and Paste the url of the image</text><br></br>
-            <text>*optional</text>
+            <p>Copy and Paste the url of the image<br></br>
+            *optional
             <input type="text"
                 name="image4"
                 value={this.state.image4}
                 placeholder="url of image here"
                 onChange={this.handleChange}
-            /><br></br><br></br>
+                className="img-url-box"
+            /></p>
 
-            <text>Your critters adorable name here</text><br></br>
-            <text>*required</text>
+            <p>Your critters adorable name here<br></br>
+            *required
             <input type="text"
                 name="name"
                 value={this.state.name}
                 placeholder="animal name"
                 onChange={this.handleChange}
-            /><br></br><br></br>
+                className="text-form-field"
+            /></p>
 
-            <text>Exact or approxiamate age is fine!</text><br></br>
-            <text>*required</text>
+            <p>Exact or approxiamate age is fine!<br></br>
+            *required
             <input type="text"
                 name="age"
                 value={this.state.age}
                 placeholder="animal age"
                 onChange={this.handleChange}
-            /><br></br><br></br>
+                className="text-form-field"
+            /></p>
 
-            <input type="submit"
-                value="Edit Animal"
-            />
+            <div className="edit-animal-button">
+                <input type="submit"
+                    value="Edit Animal"
+                    className="edit-button-field"
+                />
+            </div>
         </form>
         )
     }
