@@ -1,0 +1,16 @@
+Auth -> As a user, you should be able to ->
+Sign up/register for an account
+Edit the profile the sign up creates
+Remove the account if no longer needed
+
+Posts -> as a user, you should be able to ->
+Create a new post
+Edit any post you have created
+Add an image to a post
+Delete the post if needed
+
+Animals -> as a user, you should be able to ->
+Add a new animal linked to your profile
+Edit the information of that animal
+Add images for that animal
+Remove the animal profile if needed
