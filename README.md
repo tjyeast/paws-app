@@ -27,3 +27,13 @@ Animals are fully public<br>
 >Ability to signup with a public account just to view animals, and possilby apply to adopt a new critter<br>
 >Ability for animal organizations to accept/solicit donations with a button feature that will link to a 3rd party API<br>
 >Switch all forms to modals
+
+
+## **Links**
+
+Trello board: https://trello.com/b/Jgmh0n5Y/capstone <br>
+MVP: https://github.com/darthsanity/paws-app/blob/master/MVP <br>
+User Stories: https://github.com/darthsanity/paws-app/blob/master/User%20Stories <br>
+>Wireframes: https://github.com/darthsanity/paws-app/blob/master/wireframe%201.jpg<br>
+>https://github.com/darthsanity/paws-app/blob/master/wireframe%202.jpg <br>
+>https://github.com/darthsanity/paws-app/blob/master/wireframe3.jpg <br>
