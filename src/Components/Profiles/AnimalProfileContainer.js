@@ -60,7 +60,7 @@ class AnimalProfileContainer extends Component {
                    <div className="profile-animal-show">
                         {this.state.animals && this.state.animals.map(critter => {
                             return <div className="profile-animal-images"><Link to={`/critter/${critter._id}`}>
-                                        <img src={critter.image} alt="animal" className="animal-profile-image" width="50%" /></Link>
+                                        <img src={critter.image} alt="animal" className="animal-profile-image" width="100%" /></Link>
                                     </div>
 
                             })}

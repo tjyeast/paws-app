@@ -83,7 +83,7 @@ class EditAnimal extends Component {
                 className="textarea-field"
             /></p>
 
-            <p>Exact or approxiamate age is fine!<br></br>
+            <p>Exact or approximate age is fine!<br></br>
             *required
             <input type="text"
                 name="age"

@@ -75,9 +75,23 @@ class ShowAnimal extends Component {
                                 <p>Type: {this.state.critter.type}</p>
                             </div>
                             <div className="image-gallery">
-                                <img src={this.state.critter.image2} alt="gallery" className="image-gallery-single" width="20%"/>
-                                <img src={this.state.critter.image3} alt="gallery" className="image-gallery-single" width="20%"/>
-                                <img src={this.state.critter.image4} alt="gallery" className="image-gallery-single" width="20%"/>
+                                {this.state.critter.image ? 
+                                <img src={this.state.critter.image} alt="gallery" className="image-gallery-single" /> : (
+                                    <p></p>
+                                )}
+                                {this.state.critter.image2 ? 
+                                <img src={this.state.critter.image2} alt="gallery" 
+                                className="image-gallery-single"/> : (
+                                    <p></p>
+                                )}
+                                {this.state.critter.image3 ?
+                                <img src={this.state.critter.image3} alt="gallery" className="image-gallery-single" /> : (
+                                    <p></p>
+                                )}
+                                {this.state.critter.image4 ?
+                                <img src={this.state.critter.image4} alt="gallery" className="image-gallery-single" /> : (
+                                    <p></p>
+                                )}
                             </div>
                     </div>
                 

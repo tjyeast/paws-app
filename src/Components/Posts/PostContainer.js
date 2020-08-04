@@ -62,13 +62,17 @@ class PostContainer extends Component {
                                 <p>{post.animal.name}</p>
                                 </Link>
                                 <div className="edit-post">
-                                <button onClick={() => {this.edit(post._id)}} className="post-edit">Edit Post</button>
-                                {post.edit && <EditPost
-                                    id={this.props.user.id}
-                                    post={post}
-                                    updatePost={this.updatePost}
-                                    postId={post._id}
-                                />}
+                                    
+                                    <div className="edit-post">
+                                        <button onClick={() => {this.edit(post._id)}} className="post-edit">Edit Post</button>
+                                        {post.edit && <EditPost
+                                            id={this.props.user.id}
+                                            post={post}
+                                            updatePost={this.updatePost}
+                                            postId={post._id}
+                                        />}
+                                    </div>
+                                                                    
                             </div>
                         </div>
                         })}

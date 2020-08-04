@@ -33,16 +33,6 @@ export const verifyUser = async () => {
     }
 }
 
-export const addUserDescription = async(descriptionData) => {
-    const description = await api.post('/user/profile/description');
-    return description.data;
-}
-
-export const fetchUserDescription = async(id) => {
-    const userDescription = await api.get(`/user/profile/descript/${id}`);
-    return userDescription.data;
-}
-
 export const editUser = async(id, userData) => {
     const editedUser = await api.put(`/user/profile/edit/${id}`, userData);
     console.log(editedUser);
@@ -59,11 +49,6 @@ export const deleteUser = async(id) => {
 export const fetchCrittersByUser = async(id) => {
     const critterData = await api.get(`/animal/user/${id}`);
     return critterData.data;
-}
-
-export const fetchCritterDescription = async(id) => {
-    const critterDescription = await api.get(`/animal/description/${id}`);
-    return critterDescription.data;
 }
 
 export const addCritter = async(newCritter) => {
