@@ -61,7 +61,7 @@ class ProfileContainer extends Component {
     removeUser = async (e, id) => {
         e.preventDefault();
         await deleteUser(this.props.user.id);
-        this.props.history.push('/')
+        this.props.history.push('/post')
     }
 
     render() {
