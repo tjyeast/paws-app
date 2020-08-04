@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { fetchCrittersByUser, fetchUserDescription, fetchCritterDescription, verifyUser, addUserDescription,  deleteUser, editUser } from '../../services/apihelper';
+import { fetchCrittersByUser, verifyUser,  deleteUser, editUser } from '../../services/apihelper';
 import EditProfile from './EditProfile';
 import AnimalProfileContainer from './AnimalProfileContainer';
 import { Route, Link, withRouter } from 'react-router-dom';
@@ -25,15 +25,17 @@ class ProfileContainer extends Component {
 
     async componentDidMount() {
         const user = verifyUser();
-        this.pageSetup(user);
+        if(user) {
+            this.pageSetup(user);
+        }
     }
 
 
     handleEdit = async (e, values)=> {
       e.preventDefault();
-      const editedUser = await editUser(this.state.currentUser.id, values);
+      const editedUser = await editUser(this.props.user.id, values);
       this.setState({
-        currentUser: editedUser
+        user: editedUser
       })
       this.props.history.push('/profile');
     }
@@ -41,7 +43,7 @@ class ProfileContainer extends Component {
 
     removeUser = async (e, id) => {
         e.preventDefault();
-        await deleteUser(this.props.user.id);
+        await deleteUser(this.state.user.id);
         this.props.history.push('/post')
     }
 

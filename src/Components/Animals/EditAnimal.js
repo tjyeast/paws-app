@@ -12,7 +12,6 @@ class EditAnimal extends Component {
 
     render() {
 
-        console.log(this.props.critter);
         return (
             <form onSubmit={(e) => this.props.handleSubmit(e)}>
 
@@ -70,7 +69,7 @@ class EditAnimal extends Component {
             <input type="text"
                 name="type"
                 value={this.props.critter.type}
-                placeholder="animal name"
+                placeholder={this.props.critter.type}
                 onChange={this.props.handleChange}
                 className="text-form-field"
             /></p>
@@ -79,7 +78,7 @@ class EditAnimal extends Component {
             <textarea type="text"
                 name="description"
                 value={this.props.critter.description}
-                placeholder="What's up with your critter?"
+                placeholder={this.props.critter.description}
                 onChange={this.props.handleChange}
                 className="textarea-field"
             /></p>

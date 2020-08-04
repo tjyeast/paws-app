@@ -70,7 +70,9 @@ class ShowAnimal extends Component {
                             </div>
 
                             <div className="animal-stats" id="animal-stats-list">
+                                <p>{this.state.critter.description}</p>
                                 <p>Age: {this.state.critter.age}</p>
+                                <p>Type: {this.state.critter.type}</p>
                             </div>
                             <div className="image-gallery">
                                 <img src={this.state.critter.image2} alt="gallery" className="image-gallery-single" width="20%"/>

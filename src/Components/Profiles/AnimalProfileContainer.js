@@ -22,17 +22,11 @@ class AnimalProfileContainer extends Component {
     pageSetup = async(user) => {
         let animals;
         if(user) {
-            animals = await (fetchCrittersByUser(this.props.user.id))
-            animals.map( async (animal) => {
-                const animalDescription = await(fetchCritterDescription(animal._id));
-                animal.description = animalDescription;
-                return animal
-            })
+            animals = await (fetchCrittersByUser(this.props.user.id));
+                this.setState({
+                    animals
+                })
         }
-        console.log(animals);
-         this.setState({
-             animals
-         })
     }
 
 
