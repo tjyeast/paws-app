@@ -56,7 +56,7 @@ class PostContainer extends Component {
                 <div className="post-container">
                     <div className="main-post">
                         {this.state.posts && this.state.posts.map(post => {
-                            return <div className="post-holder"> <Link to={`/post/show/${post._id}`} className="post-link">
+                            return <div className="post-holder"> <Link to={`/show/${post._id}`} className="post-link">
                                 <img src={post.image} alt="animal" width="25%" className="post-image"/>
                                 <p className="post-text">{post.post}</p>
                                 <p>{post.animal.name}</p>

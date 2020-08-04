@@ -168,7 +168,7 @@ destroyPost = async(id) => {
                 user={this.state.currentUser.id}/>
           }}/>
 
-          <Route exact path='/post/show/:id' render={(props) => {
+          <Route exact path='/show/:id' render={(props) => {
               return <ShowPost
                   post={this.state.posts}
                   id={props.match.params.id}

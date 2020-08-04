@@ -9,13 +9,21 @@ function ShowPost(props) {
         
             <div>
                 {post && (
-                    <div>
-                        <img src={post.image} alt="animal" width="35%" />
-                        <p>{post.post}</p>
-                        <button 
-                            onClick={() => props.destroyPost(post._id)}>
-                            Delete
-                        </button>
+                    <div className="showpost">
+                        <div className="showpost-image">
+                            <img src={post.image} alt="animal" width="100%" className="showpost-image-css"/>
+                        </div>
+
+                        <div className="showpost-text">
+                            <p>{post.post}</p>
+                        </div>
+
+                        <div className="showpost-delete-field">
+                            <button 
+                                onClick={() => props.destroyPost(post._id)} className="post-delete">
+                                Delete
+                            </button>
+                        </div>
                     </div>
                 )}
             </div>

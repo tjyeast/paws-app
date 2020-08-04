@@ -190,6 +190,42 @@
   background-color: whitesmoke;
 }
 
+.post-delete {
+  border: none;
+  background: red;
+  color: white;
+  text-decoration: bold;
+  border-radius: 1ex;
+  text-align: center;
+}
+
+.showpost {
+  border-radius: 1ex;
+  background-color: whitesmoke;
+  display: flex;
+  flex-direction: row;
+}
+
+.showpost-image {
+  width: 50%;
+}
+
+.showpost-image-css {
+  border-radius: 1ex;
+}
+
+.showpost-text {
+  width: 35%;
+}
+
+.showpost-delete-field {
+  width: 10%;
+  background-color: red;
+  height: 25px;
+  border-radius: 1ex;
+  text-align: center;
+}
+
 /* profile container css */
 
 .profile-container {
