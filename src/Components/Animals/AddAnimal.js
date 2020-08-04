@@ -4,13 +4,15 @@ import { withRouter } from 'react-router-dom';
 class AddAnimal extends Component {
     constructor(props) {
         super(props);
-        
+
         this.state = {
             image: "",
             image2: "",
             image3: "",
             image4: "",
             name: "",
+            description: "",
+            type: "",
             age: ""
         }
     }
@@ -74,6 +76,24 @@ class AddAnimal extends Component {
                         placeholder="animal name"
                         onChange={this.handleChange}
                         className="text-form-field"
+                    /></p>
+
+                    <p>Critter type<br></br>
+                    <input type="text"
+                        name="type"
+                        value={this.state.type}
+                        placeholder="animal name"
+                        onChange={this.handleChange}
+                        className="text-form-field"
+                    /></p>
+
+                    <p>Critter description<br></br>
+                    <textarea type="text"
+                        name="description"
+                        value={this.state.description}
+                        placeholder="What's up with your critter?"
+                        onChange={this.handleChange}
+                        className="textarea-field"
                     /></p>
 
                     <p>Exact or approxiamate age is fine!<br></br>
